@@ -109,6 +109,11 @@
         <f:textbox />
     </f:entry>
 
+    <f:entry title="${%Provisioning Profile}" field="mobileProvisioningId"
+      description="Override the provisioning profile specified in the project">
+        <f:textbox />
+    </f:entry>
+
     <f:entry title="${%Embedded Profile}" field="embeddedProfileFile"
       description="The relative path to the mobileprovision to embed, leave blank for no embedded profile">
         <f:textbox />
