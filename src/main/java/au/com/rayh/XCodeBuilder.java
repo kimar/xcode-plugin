@@ -138,10 +138,14 @@ public class XCodeBuilder extends Builder {
      * @since 1.3.2.x
      */
     public final String mobileProvisioningId;
+    /**
+     * @since 1.3.2.x
+     */
+    public final Boolean nightlyBuild;
 
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
-    public XCodeBuilder(Boolean buildIpa, Boolean cleanBeforeBuild, Boolean cleanTestReports, String configuration, String target, String sdk, String xcodeProjectPath, String xcodeProjectFile, String xcodebuildArguments, String embeddedProfileFile, String cfBundleVersionValue, String cfBundleShortVersionStringValue, Boolean unlockKeychain, String keychainPath, String keychainPwd, String symRoot, String xcodeWorkspaceFile, String xcodeSchema, String configurationBuildDir, String codeSigningIdentity, String mobileProvisioningId) {
+    public XCodeBuilder(Boolean buildIpa, Boolean cleanBeforeBuild, Boolean cleanTestReports, Boolean nightlyBuild, String configuration, String target, String sdk, String xcodeProjectPath, String xcodeProjectFile, String xcodebuildArguments, String embeddedProfileFile, String cfBundleVersionValue, String cfBundleShortVersionStringValue, Boolean unlockKeychain, String keychainPath, String keychainPwd, String symRoot, String xcodeWorkspaceFile, String xcodeSchema, String configurationBuildDir, String codeSigningIdentity, String mobileProvisioningId) {
         this.buildIpa = buildIpa;
         this.sdk = sdk;
         this.target = target;
@@ -163,6 +167,7 @@ public class XCodeBuilder extends Builder {
         this.keychainPwd = keychainPwd;
         this.symRoot = symRoot;
         this.configurationBuildDir = configurationBuildDir;
+        this.nightlyBuild = nightlyBuild;
     }
 
     @Override
@@ -516,6 +521,10 @@ public class XCodeBuilder extends Builder {
                     version = cfBundleShortVersionString;
                 else
                     version = cfBundleVersion;
+
+                if(nightlyBuild) {
+                    version = "Nightly";
+                }
 
                 String baseName = app.getBaseName().replaceAll(" ", "_") + "-" +
                         configuration.replaceAll(" ", "_") + (StringUtils.isEmpty(version) ? "" : "-" + version);
