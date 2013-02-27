@@ -94,9 +94,9 @@
         <f:textbox />
     </f:entry>
 
-    <f:entry title="${%Nightly Build?}" field="nightlyBuild"
-      description="If checked, Version number in Artifact will be replaces by 'Nightly'.">
-        <f:checkbox />
+    <f:entry title="${%Custom Suffix}" field="customBuildSuffix"
+      description="Suffix to be used instead of Version number on Build Artifacts, leave blank for no custom suffix">
+        <f:textbox />
     </f:entry>
 
     <f:entry title="${%Clean test reports?}" field="cleanTestReports"

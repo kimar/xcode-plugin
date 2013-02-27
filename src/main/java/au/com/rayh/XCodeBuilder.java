@@ -141,11 +141,11 @@ public class XCodeBuilder extends Builder {
     /**
      * @since 1.3.2.x
      */
-    public final Boolean nightlyBuild;
+    public final String customBuildSuffix;
 
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
-    public XCodeBuilder(Boolean buildIpa, Boolean cleanBeforeBuild, Boolean cleanTestReports, Boolean nightlyBuild, String configuration, String target, String sdk, String xcodeProjectPath, String xcodeProjectFile, String xcodebuildArguments, String embeddedProfileFile, String cfBundleVersionValue, String cfBundleShortVersionStringValue, Boolean unlockKeychain, String keychainPath, String keychainPwd, String symRoot, String xcodeWorkspaceFile, String xcodeSchema, String configurationBuildDir, String codeSigningIdentity, String mobileProvisioningId) {
+    public XCodeBuilder(Boolean buildIpa, Boolean cleanBeforeBuild, Boolean cleanTestReports, String configuration, String target, String sdk, String xcodeProjectPath, String xcodeProjectFile, String xcodebuildArguments, String embeddedProfileFile, String cfBundleVersionValue, String cfBundleShortVersionStringValue, Boolean unlockKeychain, String keychainPath, String keychainPwd, String symRoot, String xcodeWorkspaceFile, String xcodeSchema, String configurationBuildDir, String codeSigningIdentity, String mobileProvisioningId, String customBuildSuffix) {
         this.buildIpa = buildIpa;
         this.sdk = sdk;
         this.target = target;
@@ -167,7 +167,7 @@ public class XCodeBuilder extends Builder {
         this.keychainPwd = keychainPwd;
         this.symRoot = symRoot;
         this.configurationBuildDir = configurationBuildDir;
-        this.nightlyBuild = nightlyBuild;
+        this.customBuildSuffix = customBuildSuffix;
     }
 
     @Override
@@ -204,6 +204,7 @@ public class XCodeBuilder extends Builder {
         String keychainPwd = envs.expand(this.keychainPwd);
         String codeSigningIdentity = envs.expand(this.codeSigningIdentity);
         String mobileProvisioningId = envs.expand(this.mobileProvisioningId);
+        String customBuildSuffix = envs.expand(this.customBuildSuffix);
         // End expanding all string variables in parameters  
 
         // Set the working directory
@@ -522,8 +523,8 @@ public class XCodeBuilder extends Builder {
                 else
                     version = cfBundleVersion;
 
-                if(nightlyBuild) {
-                    version = "Nightly";
+                if(customBuildSuffix.length() > 0) {
+                    version = customBuildSuffix;
                 }
 
                 String baseName = app.getBaseName().replaceAll(" ", "_") + "-" +
