@@ -109,6 +109,11 @@
         <f:checkbox />
     </f:entry>
 
+    <f:entry title="${%Build Xcode Archive?}" field="buildXcarchive"
+      description="Checking this option will create a .xcarchive for each .app found in the build directory.">
+        <f:checkbox />
+    </f:entry>
+
     <f:entry title="${%Code Signing Identity}" field="codeSigningIdentity"
       description="Override the code signing identity specified in the project">
         <f:textbox />
